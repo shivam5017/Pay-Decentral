@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Link,{ LinkProps } from "next/link";
 import Image from "next/image";
+
 
 const transition = {
   type: "spring",
@@ -109,7 +110,12 @@ export const ProductItem = ({
   );
 };
 
-export const HoveredLink = ({ children, ...rest }: any) => {
+
+interface HoveredLinkProps extends LinkProps {
+  children: React.ReactNode;
+}
+
+export const HoveredLink: React.FC<HoveredLinkProps> = ({ children, ...rest }) => {
   return (
     <Link
       {...rest}
@@ -119,3 +125,4 @@ export const HoveredLink = ({ children, ...rest }: any) => {
     </Link>
   );
 };
+

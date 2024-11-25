@@ -1,5 +1,5 @@
 import Button from "@/app/aceternityUI/Button";
-import { FaArrowRight, FaCheckCircle } from "react-icons/fa"; 
+import { FaArrowRight } from "react-icons/fa"; 
 
 const HeroComponent = () => {
   return (
