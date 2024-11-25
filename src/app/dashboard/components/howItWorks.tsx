@@ -51,7 +51,7 @@ const HowItWorks = () => {
           </div>
           <h3 className="text-xl font-semibold text-white mb-2">Go Live</h3>
           <p className="text-gray-600">
-            Once you're ready, go live and start accepting decentralized payments for subscriptions securely and seamlessly.
+            Once you&apos;re ready, go live and start accepting decentralized payments for subscriptions securely and seamlessly.
           </p>
         </div>
       </div>
