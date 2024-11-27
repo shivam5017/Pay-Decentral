@@ -4,6 +4,7 @@ import BenefitsComponent from "./components/benefits";
 import TrustedByComponent from "./components/trustedBy";
 import HowItWorks from "./components/howItWorks";
 import FeaturesSection from "./components/features";
+import ModalPreviewComponent from "./components/modalPreview"
 
 const DashboardPage = () => {
   return (
@@ -14,6 +15,7 @@ const DashboardPage = () => {
         <BenefitsComponent />
         <TrustedByComponent />
         <HowItWorks />
+        <ModalPreviewComponent />
         <FeaturesSection />
       </div>
     </>

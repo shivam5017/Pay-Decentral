@@ -23,7 +23,6 @@ function Navbar({ className }:{className?:string}) {
         <div className="relative rounded-full border text-white border-white/[0.2] shadow-input flex justify-between items-center px-4 py-2 mx-4 sm:mx-4  bg-[#0f0f0f]">
           <h1 className="text-lg cursor-pointer font-semibold">Pay Decentral</h1>
           <div className="flex space-x-4 cursor-pointer">
-             <h3 >SDK&apos;s </h3>
              <h3 >Docs</h3>
           </div>
         </div>
