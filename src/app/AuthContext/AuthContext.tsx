@@ -70,7 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await axios.post("https://pay-decentral-backend-1.onrender.com/login-developer", { email, password });
 
       const { token, developer } = response.data;
- 
+      
 
       if (token && developer) {
         // Set the authState with developer details and API token
@@ -78,7 +78,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           developerDetails: {
             email: developer.email,
             companyName: developer.companyName,
-            apiKey: token, // Using token as the API key
+            apiKey: developer?.apiKey, 
+
           },
         });
         

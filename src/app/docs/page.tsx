@@ -13,7 +13,7 @@ const Docs = () => {
   );
   const userEmail = "shivammalik@gmail.com";
   const developerApiKey = authState?.developerDetails?.apiKey??"";
-
+  console.log(developerApiKey)
   const copyToClipboard = () => {
     if (developerApiKey) {
       navigator.clipboard.writeText(developerApiKey).then(() => {

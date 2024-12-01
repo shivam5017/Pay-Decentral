@@ -7,7 +7,9 @@ import { AuthContext } from "../AuthContext/AuthContext";
 
 // Spinner component (if not already defined)
 function Spinner() {
-  return <div className="animate-spin h-6 w-6 border-t-2 border-blue-600 rounded-full"></div>;
+  return (
+    <div className="animate-spin h-6 w-6 border-t-2 border-blue-600 rounded-full"></div>
+  );
 }
 
 // Type for the Navbar props
@@ -32,8 +34,7 @@ function Navbar({ className }: NavbarProps) {
     return <div>Loading...</div>;
   }
 
-  const { authState, loading } = context;
-
+  const { authState, loading, logoutDeveloper } = context;
 
   return (
     <div
@@ -49,12 +50,37 @@ function Navbar({ className }: NavbarProps) {
             <div className="flex items-center h-12 justify-center">
               <Spinner />
             </div>
-          ) : authState?.developerDetails?.apiKey ? ( 
-            <Button title="Docs" onClick={() => router.push("/docs")} />
+          ) : authState?.developerDetails?.apiKey ? (
+            <>
+              <div className="flex gap-5">
+                <p
+                  className="cursor-pointer text-black hover:text-blue-700"
+                  onClick={() => router.push("/docs")}
+                >
+                  Docs
+                </p>
+                <p
+                  className="cursor-pointer text-black hover:text-blue-700"
+                  onClick={logoutDeveloper}
+                >
+                  Logout
+                </p>
+              </div>
+            </>
           ) : (
             <>
-              <Button title="Sign UP" onClick={() => router.push("/signup")} />
-              <Button title="Login" onClick={() => router.push("/login")} />
+              <p
+                className="cursor-pointer text-black hover:text-blue-700"
+                onClick={() => router.push("/signup")}
+              >
+                Sign UP
+              </p>
+              <p
+                className="cursor-pointer text-black hover:text-blue-700"
+                onClick={() => router.push("/login")}
+              >
+                Login
+              </p>
             </>
           )}
         </div>
@@ -62,5 +88,3 @@ function Navbar({ className }: NavbarProps) {
     </div>
   );
 }
-
-
