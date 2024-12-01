@@ -51,7 +51,7 @@ const HowItWorks = () => {
           </div>
           <h3 className="text-xl font-semibold text-white mb-2">Read the Docs & Go Live</h3>
           <p className="text-gray-300">
-            For more detailed instructions, check out our documentation. Once you're ready, go live and start accepting decentralized payments!
+            For more detailed instructions, check out our documentation. Once you&apos;re ready, go live and start accepting decentralized payments!
             <br />
             <a href="/docs" className="text-blue-300 hover:underline">View Documentation</a>
           </p>

@@ -1,7 +1,6 @@
 "use client";
 import React, { useContext } from "react";
 import { cn } from "@/app/lib/utils";
-import Button from "./Button";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "../AuthContext/AuthContext";
 

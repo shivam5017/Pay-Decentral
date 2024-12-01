@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "../AuthContext/AuthContext";
 import { useContext } from "react";
 
+// Define a specific interface for the error object
+interface SignupError extends Error {
+  message: string;
+}
+
 const Signup: React.FC = () => {
   const { registerDeveloper } = useContext(AuthContext)!;
   const [formData, setFormData] = useState({
@@ -25,11 +30,15 @@ const Signup: React.FC = () => {
     e.preventDefault();
     try {
       const { email, companyName, password } = formData;
+
+      // Call registerDeveloper from the AuthContext
       await registerDeveloper(email, companyName, password);
+
       setMessage("Registration successful! Redirecting...");
       setTimeout(() => router.push("/dashboard"), 2000); // Redirect to dashboard
-    } catch (error: any) {
-      setMessage(error.message || "Registration failed. Please try again.");
+    } catch (error) {
+      const err = error as SignupError;
+      setMessage(err.message || "Registration failed. Please try again.");
     }
   };
 

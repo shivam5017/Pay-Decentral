@@ -1,4 +1,3 @@
-import { FaArrowRight, FaCheckCircle } from "react-icons/fa"; 
 
 interface ButtonInterface {
   title: string;

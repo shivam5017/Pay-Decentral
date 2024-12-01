@@ -26,7 +26,7 @@ const ModalPreviewComponent = () => {
           Our platform provides an intuitive and fully customizable payment
           modal designed to seamlessly integrate into your subscription flow.
           Whether you need to tweak the design or control the user experience,
-          our modal gives you complete flexibility to match your brand's unique
+          our modal gives you complete flexibility to match your brand&apos;s unique
           style.
         </p>
         <p className="text-lg lg:text-xl leading-relaxed font-light tracking-wide">

@@ -5,11 +5,14 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "../AuthContext/AuthContext";
 import { useContext } from "react";
 
+interface LoginError extends Error {
+  message: string;
+}
+
 const Login: React.FC = () => {
   const { loginDeveloper } = useContext(AuthContext)!; // Access `loginDeveloper` from context
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState<string>("");
-  const [apiKey, setApiKey] = useState<string | null>(null);
   const router = useRouter();
 
   // Handle input changes
@@ -24,14 +27,15 @@ const Login: React.FC = () => {
       const { email, password } = formData;
 
       // Call `loginDeveloper` from context
-      await loginDeveloper(email, password); 
+      await loginDeveloper(email, password);
 
       setMessage("Login successful!");
 
       // Redirect to the dashboard
       setTimeout(() => router.push("/dashboard"), 2000);
-    } catch (error: any) {
-      setMessage(error.message || "Login failed. Please check your credentials.");
+    } catch (error) {
+      const err = error as LoginError;
+      setMessage(err.message || "Login failed. Please check your credentials.");
     }
   };
 
@@ -87,12 +91,6 @@ const Login: React.FC = () => {
           >
             {message}
           </p>
-        )}
-        {apiKey && (
-          <div className="mt-6 p-4 bg-gray-100 rounded-md">
-            <h3 className="text-center text-gray-600 font-bold">Your API Key:</h3>
-            <p className="text-center text-indigo-600 font-mono break-all">{apiKey}</p>
-          </div>
         )}
       </div>
     </div>

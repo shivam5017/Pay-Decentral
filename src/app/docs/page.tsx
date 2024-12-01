@@ -8,12 +8,10 @@ const Docs = () => {
   const authState=context?.authState;
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]);
-  const [developerWallet, setDeveloperWallet] = useState(
-    "J2trdCWs9oSoxv1dtn62e47c2omC3QQjQbSVFTqywBN6"
-  );
-  const userEmail = "shivammalik@gmail.com";
+
+  const developerWallet="J2trdCWs9oSoxv1dtn62e47c2omC3QQjQbSVFTqywBN6"
   const developerApiKey = authState?.developerDetails?.apiKey??"";
-  console.log(developerApiKey)
+  
   const copyToClipboard = () => {
     if (developerApiKey) {
       navigator.clipboard.writeText(developerApiKey).then(() => {
@@ -32,6 +30,7 @@ const Docs = () => {
           const data = await getUserData(developerApiKey);
         
           setUsers(data);
+          console.log(users);
         } catch (err) {
           console.log(err)
         }
@@ -132,7 +131,7 @@ const Docs = () => {
         </h3>
         <p className="text-lg sm:text-xl text-gray-700 mb-4">
           Import the `PaymentModal` component from the package and initialize it
-          with the necessary parameters, such as the developer's wallet address
+          with the necessary parameters, such as the developer&apos;s wallet address
           and the payment amount.
         </p>
         <pre className="bg-gray-800 text-white p-4 rounded-md text-sm sm:text-base overflow-x-auto">
