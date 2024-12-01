@@ -1,13 +1,48 @@
 "use client";
-import React, { useState } from "react";
-import { PaymentModalWithProvider } from "pay-decentral";
+import React, { useEffect, useState ,useContext} from "react";
+import { PaymentModalWithProvider, getUserData } from "pay-decentral";
+import { AuthContext } from "../AuthContext/AuthContext";
 
 const Docs = () => {
+  const context = useContext(AuthContext);
+  const authState=context?.authState;
   const [isOpen, setIsOpen] = useState(false);
+  const [users, setUsers] = useState([]);
   const [developerWallet, setDeveloperWallet] = useState(
     "J2trdCWs9oSoxv1dtn62e47c2omC3QQjQbSVFTqywBN6"
   );
-  
+  const userEmail = "shivammalik@gmail.com";
+  const developerApiKey = authState?.developerDetails?.apiKey??"";
+
+  const copyToClipboard = () => {
+    if (developerApiKey) {
+      navigator.clipboard.writeText(developerApiKey).then(() => {
+        alert("API Key copied to clipboard!");
+      }).catch(err => {
+        console.error("Error copying text: ", err);
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (developerApiKey) {
+      const fetchUserData = async () => {
+        try {
+         
+          const data = await getUserData(developerApiKey);
+        
+          setUsers(data);
+        } catch (err) {
+          console.log(err)
+        }
+      };
+
+      fetchUserData();
+    } else {
+      console.log("Developer API Key is missing or invalid");
+    }
+  }, [developerApiKey]);
+
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -52,20 +87,45 @@ const Docs = () => {
           using the following command:
         </p>
         <pre className="bg-gray-800 text-white p-4 rounded-md text-sm sm:text-base overflow-x-auto">
-          <code>
-            npm install pay-decentral
-          </code>
+          <code>npm install pay-decentral</code>
         </pre>
       </div>
 
       {/* Usage Section */}
       <div className="mb-12">
-        <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">Usage</h2>
+        <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">
+          Usage
+        </h2>
         <p className="text-lg sm:text-xl text-gray-700 mb-4">
           After installation, you can import the `PaymentModal` component and
           use it to trigger the payment process. Below is a simple example of
           how to use it.
         </p>
+        <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">Developer API Key</h2>
+        <p className="text-lg sm:text-xl text-gray-700 mb-4">
+          Register to Our Website to get Your own API KEY to be able to use our Payment Modal.
+        </p>
+        <div className="mb-12">
+        <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">
+          Your API Key:
+        </h2>
+
+        <div className="relative">
+          <p 
+            className="text-lg sm:text-xl text-gray-700 mb-4 break-all overflow-hidden max-w-full"
+            title={developerApiKey} 
+          >
+            {developerApiKey}
+          </p>
+
+          <button
+            onClick={copyToClipboard}
+            className="absolute right-0 top-0 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
+          >
+            Copy
+          </button>
+        </div>
+      </div>
 
         <h3 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-2">
           Import and Initialize
@@ -77,36 +137,23 @@ const Docs = () => {
         </p>
         <pre className="bg-gray-800 text-white p-4 rounded-md text-sm sm:text-base overflow-x-auto">
           <code>
-            {`import { PaymentModal } from 'pay-decentral';`}
+            {`1:- Import the NPM Package which contains 2 things PaymentModalWithProvider || PaymentModal(Both are SameThings but call PaymentModalWithProvider) and getUserData`}
             <br />
-            {`import { useState } from 'react';`}
-            <br />
-            <br />
-            {`const [isOpen, setIsOpen] = useState(false);`}
-            <br />
-            {`const developerWallet = 'YourWalletAddress';`}
-            <br />
-            {` const subscriptionPlans = [
-    { id: 'plan1', name: 'Basic Plan', amount: '0.001' },
-    { id: 'plan2', name: 'Pro Plan', amount: '0.002' },
-    { id: 'plan3', name: 'Premium Plan', amount: '0.003' },
-  ];
-`}
+            {`import { PaymentModalWithProvider,getUserData } from 'pay-decentral';`}
             <br />
             <br />
-            {`const handleOpenModal = () => setIsOpen(true);`}
+            {`getUserData is a function used to get the user's payment status`}
             <br />
-            {`const handleCloseModal = () => setIsOpen(false);`}
+            {`getUserData(developerApiKey) Developer Key is used to get the data of Your Website User's payment Status`}
             <br />
             <br />
-            {`// Trigger button to open the modal`}
-            <br />
-            {`<button onClick={handleOpenModal}>Pay with Solana</button>`}
-            <br />
+            {`This is the PaymentModal`}
             <br />
             {`<PaymentModal`}
             <br />
             {`  subscriptionPlans={subscriptionPlans}`}
+            <br />
+            {`  userEmail={"userDetails?.userEmail"}`}
             <br />
             {`  isOpen={isOpen}`}
             <br />
@@ -114,6 +161,12 @@ const Docs = () => {
             <br />
             {`  developerWallet={developerWallet}`}
             <br />
+            {`  developerApiKey={developerApiKey}`}
+            <br />
+            {`  onPaymentVerified={(planId,transactionSignature)=>{
+                     console.log('Payment for {planId} verified with transaction {transactionSignature}')
+          }}`}
+
             {`/>`}
           </code>
         </pre>
@@ -121,7 +174,9 @@ const Docs = () => {
 
       {/* Features Section */}
       <div className="mb-12">
-        <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">Features</h2>
+        <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">
+          Features
+        </h2>
         <p className="text-lg sm:text-xl text-gray-700 mb-4">
           PayDecentral provides the following key features:
         </p>
@@ -144,21 +199,70 @@ const Docs = () => {
 
       {/* Example Section */}
       <div className="mb-12">
-        <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">Example</h2>
+        <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">
+          Example
+        </h2>
         <p className="text-lg sm:text-xl text-gray-700 mb-4">
           Below is a complete example of how to integrate the PayDecentral
           package to trigger a payment modal.
         </p>
         <pre className="bg-gray-800 text-white p-4 rounded-md text-sm sm:text-base overflow-x-auto">
           <code>
-            {`import { PaymentModal } from 'pay-decentral';`}
+            {`1:- Import the NPM Package which contains 2 things PaymentModalWithProvider || PaymentModal(Both are SameThings but call PaymentModalWithProvider) and getUserData`}
+            <br />
+            {`import { PaymentModalWithProvider,getUserData } from 'pay-decentral';`}
             <br />
             {`import { useState } from 'react';`}
             <br />
             <br />
+            {`2:- Use to open the PaymentModal`}
+            <br />
             {`const [isOpen, setIsOpen] = useState(false);`}
             <br />
+            <br />
+            {`3:- Address where you want to receive funds on`}
+            <br />
             {`const developerWallet = 'YourWalletAddress';`}
+            <br />
+            <br />
+            {`4:- Add UserEmail:- Example You get userDetails from AuthContext and it contains userEmail="paydecentral@gmail.com" right so just add UserDetails?.userEmail`}
+            <br />
+            {`const userEmail='paydecentral@gmail.com'`}
+            <br />
+            <br />
+            {`5:- Once You register you will get an API Key to use Add that here`}
+            <br />
+            {`const developerApiKey='Your API Key'`}
+            <br />
+            <br />
+            {`How you can get User's Data (Do this According to Your Preference)`}
+            {`
+    
+  useEffect(() => {
+    if (developerApiKey) {
+      const fetchUserData = async () => {
+        try {
+         
+          const data = await getUserData(developerApiKey);
+        
+          setUsers(data);
+        } catch (err) {
+          console.log(err)
+        }
+      };
+
+      fetchUserData();
+    } else {
+      console.log("Developer API Key is missing or invalid");
+    }
+  }, [developerApiKey]);
+
+    fetchUserData();
+  }, []);
+            `}
+            <br />
+            <br />
+            {`6:- Define your Plans with amount like this Note:- Amount should be in Solana example 1 SOL = 239$ and you Plan is of 50$ than SOL = 0.21`}
             <br />
             {` const subscriptionPlans = [
     { id: 'plan1', name: 'Basic Plan', amount: '0.001' },
@@ -168,6 +272,8 @@ const Docs = () => {
 `}
             <br />
             <br />
+            {`handleOpenModal and handleCloseModal is used to open close the Payment Modal`}
+            <br />
             {`const handleOpenModal = () => setIsOpen(true);`}
             <br />
             {`const handleCloseModal = () => setIsOpen(false);`}
@@ -175,12 +281,19 @@ const Docs = () => {
             <br />
             {`// Trigger button to open the modal`}
             <br />
+            <br />
+            {`Create a button to Open the Modal for payment`}
+            <br />
             {`<button onClick={handleOpenModal}>Pay with Solana</button>`}
             <br />
+            <br />
+            {`This is the PaymentModal`}
             <br />
             {`<PaymentModal`}
             <br />
             {`  subscriptionPlans={subscriptionPlans}`}
+            <br />
+            {`  userEmail={"userDetails?.userEmail"}`}
             <br />
             {`  isOpen={isOpen}`}
             <br />
@@ -188,7 +301,26 @@ const Docs = () => {
             <br />
             {`  developerWallet={developerWallet}`}
             <br />
+            {`  developerApiKey={developerApiKey}`}
+            <br />
+            {`  onPaymentVerified={(planId,transactionSignature)=>{
+                     console.log('Payment for {planId} verified with transaction {transactionSignature}')
+          }}`}
+
             {`/>`}
+          </code>
+        </pre>
+        <pre className="bg-gray-800 text-white p-4 rounded-md text-sm sm:text-base overflow-x-auto mt-10">
+          <code>
+            {`Response You get from getUserData => `}
+            <br />
+            {`
+            createdAt:"2024-11-30T18:12:19.550Z"
+            email:"user@gmail.com"
+            planId:"Basic"
+            transactionSignature:"38J...sF1 (Transaction Signature)"
+            walletAddress:"7t...nh (User's Solana Wallet Address)"
+            `}
           </code>
         </pre>
       </div>
@@ -202,7 +334,7 @@ const Docs = () => {
         how users can pay with Solana for a subscription.
       </p>
 
-      <div className="bg-gray-50 p-6 rounded-lg shadow-md mb-8">
+      <div className="bg-gray-50 p-6 rounded-lg shadow-md mb-8 mt-20">
         <h3 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4">
           Click the Button Below to Open the Modal:
         </h3>
@@ -216,11 +348,15 @@ const Docs = () => {
 
       <PaymentModalWithProvider
         subscriptionPlans={subscriptionPlans}
+        userEmail={"shivammalik@gmail.com"}
+        developerApiKey={developerApiKey ?? ""}
         isOpen={isOpen}
         onClose={handleCloseModal}
         developerWallet={developerWallet}
         onPaymentVerified={(planId, transactionSignature) => {
-          console.log(`Payment for ${planId} verified with transaction ${transactionSignature}`);
+          console.log(
+            `Payment for ${planId} verified with transaction ${transactionSignature}`
+          );
         }}
       />
     </section>

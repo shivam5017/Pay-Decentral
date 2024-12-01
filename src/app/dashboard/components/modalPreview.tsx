@@ -4,10 +4,15 @@ const ModalPreviewComponent = () => {
   return (
     <section className="flex flex-col lg:flex-row items-center justify-between py-16 px-8 bg-gradient-to-r from-purple-700 via-purple-800 to-indigo-900 text-white">
       {/* Left: Image Section */}
-      <div className="w-full lg:w-80 mb-8 lg:mb-0 flex justify-center">
+      <div className="w-full lg:w-80 mb-8 lg:mb-0 flex flex-wrap justify-center lg:justify-between items-center">
         <img
           src="/modal.png"
           alt="Feature Illustration"
+          className="max-w-full h-auto rounded-lg shadow-xl border-2 border-purple-500 lg:mr-4"
+        />
+        <img
+          src="/modal2.png"
+          alt="Feature Illustration No.2"
           className="max-w-full h-auto rounded-lg shadow-xl border-2 border-purple-500"
         />
       </div>
