@@ -5,34 +5,48 @@ import { AuthContext } from "../AuthContext/AuthContext";
 
 const Docs = () => {
   const context = useContext(AuthContext);
-  const authState=context?.authState;
+  const authState = context?.authState;
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]);
+  const [developerApiKey, setDeveloperApiKey] = useState("");
+  const [isClient, setIsClient] = useState(false);
 
-  const developerWallet="J2trdCWs9oSoxv1dtn62e47c2omC3QQjQbSVFTqywBN6"
-  const developerApiKey = authState?.developerDetails?.apiKey??"";
-  
+  const developerWallet = "J2trdCWs9oSoxv1dtn62e47c2omC3QQjQbSVFTqywBN6";
+
+  // Check if the code is running on the client side
+  useEffect(() => {
+    setIsClient(typeof window !== "undefined");
+  }, []);
+
+  // Set API key once it's available
+  useEffect(() => {
+    if (authState?.developerDetails?.apiKey) {
+      setDeveloperApiKey(authState.developerDetails.apiKey);
+    }
+  }, [authState]);
+
   const copyToClipboard = () => {
     if (developerApiKey) {
-      navigator.clipboard.writeText(developerApiKey).then(() => {
-        alert("API Key copied to clipboard!");
-      }).catch(err => {
-        console.error("Error copying text: ", err);
-      });
+      navigator.clipboard
+        .writeText(developerApiKey)
+        .then(() => {
+          alert("API Key copied to clipboard!");
+        })
+        .catch((err) => {
+          console.error("Error copying text: ", err);
+        });
     }
   };
 
   useEffect(() => {
-    if (developerApiKey) {
+    if (developerApiKey && isClient) {
       const fetchUserData = async () => {
         try {
-         
           const data = await getUserData(developerApiKey);
-        
           setUsers(data);
           console.log(users);
         } catch (err) {
-          console.log(err)
+          console.log(err);
         }
       };
 
@@ -40,7 +54,7 @@ const Docs = () => {
     } else {
       console.log("Developer API Key is missing or invalid");
     }
-  }, [developerApiKey]);
+  }, [developerApiKey, isClient]);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -345,19 +359,21 @@ const Docs = () => {
         </button>
       </div>
 
-      <PaymentModalWithProvider
-        subscriptionPlans={subscriptionPlans}
-        userEmail={"shivammalik@gmail.com"}
-        developerApiKey={developerApiKey ?? ""}
-        isOpen={isOpen}
-        onClose={handleCloseModal}
-        developerWallet={developerWallet}
-        onPaymentVerified={(planId, transactionSignature) => {
-          console.log(
-            `Payment for ${planId} verified with transaction ${transactionSignature}`
-          );
-        }}
-      />
+      {isOpen && (
+        <PaymentModalWithProvider
+          subscriptionPlans={subscriptionPlans}
+          userEmail={'shivammalik@gmail.com'}
+          isOpen={isOpen}
+          onClose={handleCloseModal}
+          developerWallet={developerWallet}
+          developerApiKey={developerApiKey}
+          onPaymentVerified={(planId, transactionSignature) => {
+            console.log(
+              `Payment for ${planId} verified with transaction ${transactionSignature}`
+            );
+          }}
+        />
+      )}
     </section>
   );
 };
