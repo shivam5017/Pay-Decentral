@@ -4,39 +4,40 @@ import React, { createContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
+
 interface AuthState {
   developerDetails: {
     email: string;
     companyName: string;
     apiKey: string;
-  } | null; // Developer details (email, companyName, apiKey)
+  } | null;
 }
 
-// Define the AuthContext interface
+
 interface AuthContextProps {
   authState: AuthState;
   loginDeveloper: (email: string, password: string) => Promise<void>;
   registerDeveloper: (email: string, companyName: string, password: string) => Promise<void>;
   logoutDeveloper: () => void;
-  loading: boolean; // Loading state
+  loading: boolean;
 }
 
-// Create the AuthContext
+
 export const AuthContext = createContext<AuthContextProps | null>(null);
 
-// Props for the AuthProvider
+
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-// AuthProvider component
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const router = useRouter();
 
   const [authState, setAuthState] = useState<AuthState>({
     developerDetails: null,
   });
-  const [loading, setLoading] = useState<boolean>(false); // Loading state
+  const [loading, setLoading] = useState<boolean>(false); 
 
   // Register developer
   const registerDeveloper = async (email: string, companyName: string, password: string) => {
@@ -54,7 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         developerDetails: { email, companyName, apiKey },
       });
 
-      router.push("/dashboard"); // Redirect to dashboard
+      router.push("/dashboard"); 
     } catch (error) {
       console.error("Error during registration:", error);
       throw new Error("Registration failed");

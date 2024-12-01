@@ -1,20 +1,22 @@
-"use client";
-import React, { useEffect, useState ,useContext} from "react";
-import { PaymentModalWithProvider, getUserData } from "pay-decentral";
+'use client'
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../AuthContext/AuthContext";
+import dynamic from 'next/dynamic';
 
+
+const PaymentModalWithProviderNoSSR = dynamic(
+  () => import('pay-decentral').then(mod => mod.PaymentModalWithProvider),
+  { ssr: false }  
+);
 
 const Docs = () => {
   const context = useContext(AuthContext);
   const authState = context?.authState;
   const [isOpen, setIsOpen] = useState(false);
-  const [users, setUsers] = useState([]);
   const [developerApiKey, setDeveloperApiKey] = useState("");
 
 
   const developerWallet = "J2trdCWs9oSoxv1dtn62e47c2omC3QQjQbSVFTqywBN6";
-
-
 
 
 
@@ -24,37 +26,8 @@ const Docs = () => {
     }
   }, [authState]);
 
-  const copyToClipboard = () => {
-    if (developerApiKey) {
-      navigator.clipboard
-        .writeText(developerApiKey)
-        .then(() => {
-          alert("API Key copied to clipboard!");
-        })
-        .catch((err) => {
-          console.error("Error copying text: ", err);
-        });
-    }
-  };
 
-  useEffect(() => {
-    if (developerApiKey) {
-      const fetchUserData = async () => {
-        try {
-          const data = await getUserData(developerApiKey);
-          setUsers(data);
-          console.log(users);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-
-      fetchUserData();
-    } else {
-      console.log("Developer API Key is missing or invalid");
-    }
-  }, [developerApiKey]);
-
+  
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -130,12 +103,6 @@ const Docs = () => {
             {developerApiKey}
           </p>
 
-          <button
-            onClick={copyToClipboard}
-            className="absolute right-0 top-0 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
-          >
-            Copy
-          </button>
         </div>
       </div>
 
@@ -359,7 +326,7 @@ const Docs = () => {
       </div>
 
       {isOpen && (
-        <PaymentModalWithProvider
+        <PaymentModalWithProviderNoSSR
           subscriptionPlans={subscriptionPlans}
           userEmail={'shivammalik@gmail.com'}
           isOpen={isOpen}
