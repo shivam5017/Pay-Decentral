@@ -3,11 +3,11 @@ import FeatureCard from "@/app/aceternityUI/FeaturesCard";
 
 const FeaturesSection = () => {
   return (
-    <section className="py-16 px-4  text-center">
+    <section className="py-16 px-4  text-center bg-black">
       <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
         Powerful Features to Streamline Your Subscriptions
       </h2>
-      <p className="text-lg text-gray-700 mb-10 max-w-3xl mx-auto">
+      <p className="text-lg text-white mb-10 max-w-3xl mx-auto">
         From customizable subscription plans to secure payment gateways on
         Solana, we’ve got you covered.
       </p>
@@ -15,7 +15,7 @@ const FeaturesSection = () => {
         <FeatureCard
           id="1"
           title="Solana Native Cryptocurrency Support"
-          description="Accept Solana (SOL) and other tokens built on the Solana blockchain. Effortlessly integrate cryptocurrency payments directly into your subscription flow."
+          description="Accept Solana (SOL) tokens only. Effortlessly integrate cryptocurrency payments directly into your subscription flow."
           status="live"
         />
 

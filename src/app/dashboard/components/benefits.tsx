@@ -1,47 +1,52 @@
 const BenefitsComponent = () => {
   return (
-    <section className="py-16 text-center text-white  p-10">
-      <h2 className="text-2xl lg:text-3xl font-bold mb-6">
+    <section className="py-16 px-10 text-center text-white bg-gradient-to-r from-purple-700 via-purple-900 to-gray-900">
+      <h2 className="text-3xl lg:text-4xl font-extrabold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-teal-400 to-blue-500">
         Why Choose Decentralized Subscriptions?
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div className="flex flex-col items-center">
-          <div className="bg-blue-500 p-4 rounded-full mb-4">
-            {/* <Icon name="shield" size="32" color="white" /> */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        {/* Benefit 1 */}
+        <div className="flex flex-col items-center text-center">
+          <div className="bg-gradient-to-r from-blue-500 to-teal-500 p-5 rounded-full shadow-lg mb-6">
+            {/* Replace with an SVG or Icon */}
+            <span className="text-white text-2xl">🛡️</span>
           </div>
-          <h3 className="font-semibold">Security & Transparency</h3>
-          <p className="text-gray-600">
-            Blockchain-powered payments ensure your transactions are secure and
-            transparent.
+          <h3 className="text-xl font-bold mb-3">Security & Transparency</h3>
+          <p className="text-gray-300 text-base">
+            Blockchain-powered payments ensure your transactions are secure and transparent.
           </p>
         </div>
-        <div className="flex flex-col items-center">
-          <div className="bg-green-500 p-4 rounded-full mb-4">
-            {/* <Icon name="globe" size="32" color="white" /> */}
+        {/* Benefit 2 */}
+        <div className="flex flex-col items-center text-center">
+          <div className="bg-gradient-to-r from-green-500 to-lime-500 p-5 rounded-full shadow-lg mb-6">
+            {/* Replace with an SVG or Icon */}
+            <span className="text-white text-2xl">🌍</span>
           </div>
-          <h3 className="font-semibold">Global Reach</h3>
-          <p className="text-gray-600">
-            Serve customers worldwide without relying on traditional financial
-            intermediaries.
+          <h3 className="text-xl font-bold mb-3">Global Reach</h3>
+          <p className="text-gray-300 text-base">
+            Serve customers worldwide without relying on traditional financial intermediaries.
           </p>
         </div>
-        <div className="flex flex-col items-center">
-          <div className="bg-yellow-500 p-4 rounded-full mb-4">
-            {/* <Icon name="currency-dollar" size="32" color="white" /> */}
+        {/* Benefit 3 */}
+        <div className="flex flex-col items-center text-center">
+          <div className="bg-gradient-to-r from-yellow-500 to-orange-500 p-5 rounded-full shadow-lg mb-6">
+            {/* Replace with an SVG or Icon */}
+            <span className="text-white text-2xl">💰</span>
           </div>
-          <h3 className="font-semibold">Lower Fees</h3>
-          <p className="text-gray-600">
+          <h3 className="text-xl font-bold mb-3">Lower Fees</h3>
+          <p className="text-gray-300 text-base">
             Reduce transaction costs by eliminating middlemen from the process.
           </p>
         </div>
-        <div className="flex flex-col items-center">
-          <div className="bg-purple-500 p-4 rounded-full mb-4">
-            {/* <Icon name="user-lock" size="32" color="white" /> */}
+        {/* Benefit 4 */}
+        <div className="flex flex-col items-center text-center">
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-5 rounded-full shadow-lg mb-6">
+            {/* Replace with an SVG or Icon */}
+            <span className="text-white text-2xl">🔒</span>
           </div>
-          <h3 className="font-semibold">User Empowerment</h3>
-          <p className="text-gray-600">
-            Give your users control over their subscription payments with full
-            transparency.
+          <h3 className="text-xl font-bold mb-3">User Empowerment</h3>
+          <p className="text-gray-300 text-base">
+            Give your users control over their subscription payments with full transparency.
           </p>
         </div>
       </div>
