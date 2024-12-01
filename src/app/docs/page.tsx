@@ -2,6 +2,7 @@
 import React, { useEffect, useState ,useContext} from "react";
 import { PaymentModalWithProvider, getUserData } from "pay-decentral";
 import { AuthContext } from "../AuthContext/AuthContext";
+import dynamic from "next/dynamic";
 
 const Docs = () => {
   const context = useContext(AuthContext);
