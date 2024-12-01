@@ -10,14 +10,12 @@ const Docs = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]);
   const [developerApiKey, setDeveloperApiKey] = useState("");
-  const [isClient, setIsClient] = useState(false);
+
 
   const developerWallet = "J2trdCWs9oSoxv1dtn62e47c2omC3QQjQbSVFTqywBN6";
 
 
-  useEffect(() => {
-    setIsClient(typeof window !== "undefined");
-  }, []);
+
 
 
   useEffect(() => {
@@ -40,7 +38,7 @@ const Docs = () => {
   };
 
   useEffect(() => {
-    if (developerApiKey && isClient) {
+    if (developerApiKey) {
       const fetchUserData = async () => {
         try {
           const data = await getUserData(developerApiKey);
@@ -55,7 +53,7 @@ const Docs = () => {
     } else {
       console.log("Developer API Key is missing or invalid");
     }
-  }, [developerApiKey, isClient]);
+  }, [developerApiKey]);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -186,7 +184,7 @@ const Docs = () => {
         </pre>
       </div>
 
-      {/* Features Section */}
+
       <div className="mb-12">
         <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">
           Features
