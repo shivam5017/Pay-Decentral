@@ -13,12 +13,12 @@ const Docs = () => {
 
   const developerWallet = "J2trdCWs9oSoxv1dtn62e47c2omC3QQjQbSVFTqywBN6";
 
-  // Check if the code is running on the client side
+
   useEffect(() => {
     setIsClient(typeof window !== "undefined");
   }, []);
 
-  // Set API key once it's available
+
   useEffect(() => {
     if (authState?.developerDetails?.apiKey) {
       setDeveloperApiKey(authState.developerDetails.apiKey);
